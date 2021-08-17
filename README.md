@@ -1,5 +1,5 @@
 # loadbalancer
-Load balancer that uses round robin to disctibute request to different workers(servers) in a server pool.
+Load balancer that uses round robin to distribute request to different workers(servers) in a server pool.
 Checks (workers) server health.
 
 ## Setup
