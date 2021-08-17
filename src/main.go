@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"net/url"
@@ -46,9 +45,6 @@ func healthCheck(serverPool *ServerPool) {
 			serverPool.Remove(v.Url)
 		}
 	}
-
-	fmt.Println(serverPool)
-
 }
 
 // return true if server is health false otherwise
@@ -67,22 +63,21 @@ func getHealth(url string) bool {
 	}()
 
 	return rep.StatusCode == 200
-
 }
 
+// server pool instance
 var serverPool = ServerPool{[]Server{}}
 
 func main() {
 
+	// gocron scheduler instance
 	s := gocron.NewScheduler(time.Local)
 
+	// health check peformed after 5 seconds
 	s.Every(5).Seconds().Do(func() {
 		go healthCheck(&serverPool)
 
 	})
 
 	s.StartAsync()
-
-	time.Sleep(time.Minute * 2)
-
 }
